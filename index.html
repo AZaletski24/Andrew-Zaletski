@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andrew Zaletski</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0f12;
+      --surface: #161a20;
+      --text: #e6e9ef;
+      --text-muted: #8b919e;
+      --accent: #7dd3b0;
+      --accent-dim: #5ab896;
+      --border: #2a2f38;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+    }
+
+    header {
+      margin-bottom: 4rem;
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 1rem;
+      font-weight: 400;
+    }
+
+    hr {
+      border: none;
+      height: 1px;
+      background: var(--border);
+      margin: 2.5rem 0;
+    }
+
+    h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .project {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .project:hover {
+      border-color: var(--accent-dim);
+      box-shadow: 0 0 0 1px var(--accent-dim);
+    }
+
+    .project-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .project-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .project-link {
+      display: inline-block;
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .project-link:hover {
+      color: var(--accent-dim);
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Andrew Zaletski</h1>
+      <!-- <img src="headshot.jpeg" alt="Andrew Zaletski" style="width: 100px; height: 120px"> Headshot here, find better picture-->
+      <p class="subtitle">Data Scientist</p>
+      <a href="www.linkedin.com/in/andrew-zaletski" style="color: var(--accent);">LinkedIn</a>
+      <a href="www.github.com/AZaletski24" style="color: var(--accent);">GitHub</a>
+      <a href="https://x.com/andrew_zaletski" style="color: var(--accent);">X</a>
+    </header>
+
+    <hr>
+
+    <section>
+      <h2>Projects</h2>
+
+      <article class="project">
+        <div class="project-title">Power Outage Severity by Location</div>
+        <div class="project-meta">DSC 80 Final Project · Winter 2026</div>
+        <p class="project-desc">
+          Analysis of major U.S. power outages: location-based hypothesis testing,
+          regression to predict customers affected, and fairness analysis.
+        </p>
+        <a href="#" class="project-link">View report →</a>
+      </article>
+    </section>
+
+    <footer>
+      <p>© 2026 Andrew Zaletski</p>
+    </footer>
+  </div>
+</body>
+</html>
