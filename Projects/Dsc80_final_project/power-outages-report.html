@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Power Outage Severity by Location</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0f12;
+      --surface: #161a20;
+      --surface-alt: #0f1319;
+      --text: #e6e9ef;
+      --text-muted: #8b919e;
+      --accent: #7dd3b0;
+      --accent-dim: #5ab896;
+      --border: #2a2f38;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 3rem;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 3.1vw, 2.4rem);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 32rem;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem 1.5rem;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .meta-label {
+      opacity: 0.7;
+      margin-right: 0.4rem;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--accent-dim);
+      text-decoration: underline;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      margin: 0 -1.5rem 2rem;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(to bottom, rgba(13,15,18,0.98), rgba(13,15,18,0.9));
+      border-bottom: 1px solid rgba(42,47,56,0.9);
+      backdrop-filter: blur(14px);
+    }
+
+    .crumbs {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .crumbs a {
+      color: var(--accent);
+    }
+
+    main {
+      display: block;
+    }
+
+    section {
+      margin-bottom: 2.25rem;
+    }
+
+    h2 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      margin-bottom: 0.7rem;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    ul {
+      margin: 0.4rem 0 0.7rem 1.4rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    li + li {
+      margin-top: 0.25rem;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      background: rgba(22,26,32,0.9);
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      border: 1px solid rgba(42,47,56,0.8);
+      color: var(--accent);
+    }
+
+    .callout {
+      margin-top: 0.75rem;
+      border-radius: 10px;
+      padding: 0.75rem 0.95rem;
+      background: radial-gradient(circle at top left, rgba(125,211,176,0.11), rgba(9,9,11,0.9));
+      border: 1px solid rgba(125,211,176,0.2);
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    .callout strong {
+      font-weight: 600;
+    }
+
+    .toc {
+      position: sticky;
+      top: 3.25rem;
+      z-index: 5;
+      background: var(--surface-alt);
+      border-radius: 12px;
+      border: 1px solid rgba(42,47,56,0.95);
+      padding: 1rem 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .toc-title {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.9rem;
+    }
+
+    .toc li + li {
+      margin-top: 0.3rem;
+    }
+
+    .toc a {
+      color: var(--text-muted);
+    }
+
+    .toc a:hover {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .metric {
+      padding: 0.55rem 0.7rem;
+      border-radius: 9px;
+      background: rgba(15,19,25,0.95);
+      border: 1px solid rgba(42,47,56,0.95);
+      font-size: 0.8rem;
+    }
+
+    .metric-label {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--text-muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .metric-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+
+    .plot-frame {
+      width: 100%;
+      height: 420px;
+      border: 1px solid rgba(42,47,56,0.9);
+      border-radius: 10px;
+      background: #020617;
+      margin: 0.9rem 0 0.4rem;
+    }
+
+    @media (max-width: 700px) {
+      .plot-frame {
+        height: 360px;
+      }
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      padding-top: 1.4rem;
+      border-top: 1px solid rgba(42,47,56,0.95);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="eyebrow">DSC 80 · Final Project</div>
+      <h1>Power Outage Severity by Location</h1>
+      <p class="subtitle">
+        How much worse are major U.S. power outages in some regions than others?
+        Using 16 years of outage records, I study where customers are hit hardest,
+        model the number of customers affected, and evaluate whether my model treats
+        regions fairly.
+      </p>
+      <div class="meta-row">
+        <div><span class="meta-label">Author</span>Andrew Zaletski</div>
+        <div><span class="meta-label">Course</span>UCSD DSC 80 · Winter 2026</div>
+        <div><span class="meta-label">Dataset</span>"Major Power Outage Risks in the U.S."</div>
+      </div>
+    </header>
+
+    <nav>
+      <div class="crumbs">
+        <a href="../index.html">← Back to home</a>
+      </div>
+    </nav>
+
+    <main>
+      <aside>
+        <div class="toc">
+          <div class="toc-title">Sections</div>
+          <ul>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#eda">Data Cleaning and Exploratory Data Analysis</a></li>
+            <li><a href="#missingness">Assessment of Missingness</a></li>
+            <li><a href="#hypothesis">Hypothesis Testing</a></li>
+            <li><a href="#prediction">Framing a Prediction Problem</a></li>
+            <li><a href="#baseline">Baseline Model</a></li>
+            <li><a href="#final-model">Final Model</a></li>
+            <li><a href="#fairness">Fairness Analysis</a></li>
+          </ul>
+        </div>
+      </aside>
+      <article>
+        <section id="introduction">
+          <h2>Introduction</h2>
+          <p>
+            The <em>Major Power Outage Risks in the U.S.</em> dataset collects large-scale
+            outages in the continental United States from 2000–2016. Each row records
+            where the outage occurred, why it happened, how long it lasted, and how
+            many customers were affected.
+          </p>
+          <p>
+            This project focuses on a location-based question:
+            <strong>Are major power outages more severe, in terms of the number of
+            customers affected, in some parts of the U.S. than in others?</strong>
+            I compare outages in the <code>South</code> climate region to those in
+            <code>West North Central</code>, using the region where the outage occurred
+            and the number of customers affected.
+          </p>
+          <p>
+            The raw Excel export contains <strong>1541 rows and 57 columns</strong>.
+            After cleaning (removing non-data rows, parsing dates, and dropping
+            empty rows), the working dataset has <strong>1534 outages and 54
+            columns</strong>. Columns most relevant to this question include:
+          </p>
+          <ul>
+            <li><code>CUSTOMERS.AFFECTED</code> – number of customers impacted by the outage.</li>
+            <li><code>CLIMATE.REGION</code> – coarse climate region for each state.</li>
+            <li><code>OUTAGE.DURATION</code> – outage length in minutes.</li>
+            <li><code>YEAR</code> and <code>MONTH</code> – when the outage occurred.</li>
+          </ul>
+        </section>
+
+        <section id="eda">
+          <h2>Data Cleaning and Exploratory Data Analysis</h2>
+          <ul>
+            <li>Removed title/description rows and used row 5 as the source of column names.</li>
+            <li>Dropped a non-data "variables" column and the units row beneath the header.</li>
+            <li>Combined separate date/time columns into timestamp features
+                <code>OUTAGE.START</code> and <code>OUTAGE.RESTORATION</code>.</li>
+            <li>Converted key numeric columns (including
+                <code>CUSTOMERS.AFFECTED</code> and <code>OUTAGE.DURATION</code>)
+                to numeric types, coercing invalid entries to missing values.</li>
+          </ul>
+          <p>
+            To understand the data, I first looked at the <strong>number of major
+            outages per climate region</strong>. The South and West regions experience
+            the largest counts of major outages, while <code>West North Central</code>
+            has relatively few.
+          </p>
+
+          <iframe
+            src="../assets/step2_region.html"
+            class="plot-frame"
+            title="Number of major power outages by U.S. climate region">
+          </iframe>
+
+          <iframe
+            src="../assets/step2_box.html"
+            class="plot-frame"
+            title="Customers affected by climate region (box plot)">
+          </iframe>
+
+          <p>
+            To summarize the data at the state level, I also examine a grouped table
+            of outages, showing the mean total price and mean number of customers
+            served for each state.
+          </p>
+
+          <div class="callout">
+            <strong>Grouped table.</strong> The table below shows a sample of states
+            with their average <code>TOTAL.PRICE</code> and <code>TOTAL.CUSTOMERS</code>
+            across major outages:
+          </div>
+
+          <table style="width:100%; border-collapse: collapse; margin-top: 0.75rem; font-size: 0.9rem;">
+            <thead>
+              <tr>
+                <th style="border-bottom: 1px solid var(--border); text-align:left; padding: 0.35rem 0.5rem;">State</th>
+                <th style="border-bottom: 1px solid var(--border); text-align:right; padding: 0.35rem 0.5rem;">Mean total price</th>
+                <th style="border-bottom: 1px solid var(--border); text-align:right; padding: 0.35rem 0.5rem;">Mean total customers</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="border-bottom: 1px solid var(--border); padding: 0.3rem 0.5rem;">Alabama</td>
+                <td style="border-bottom: 1px solid var(--border); padding: 0.3rem 0.5rem; text-align:right;">7.99</td>
+                <td style="border-bottom: 1px solid var(--border); padding: 0.3rem 0.5rem; text-align:right;">2.40e6</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 1px solid var(--border); padding: 0.3rem 0.5rem;">Alaska</td>
+                <td style="border-bottom: 1px solid var(--border); padding: 0.3rem 0.5rem; text-align:right;">NaN</td>
+                <td style="border-bottom: 1px solid var(--border); padding: 0.3rem 0.5rem; text-align:right;">2.74e5</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 1px solid var(--border); padding: 0.3rem 0.5rem;">Arizona</td>
+                <td style="border-bottom: 1px solid var(--border); padding: 0.3rem 0.5rem; text-align:right;">9.12</td>
+                <td style="border-bottom: 1px solid var(--border); padding: 0.3rem 0.5rem; text-align:right;">2.80e6</td>
+              </tr>
+              <tr>
+                <td style="border-bottom: 1px solid var(--border); padding: 0.3rem 0.5rem;">Arkansas</td>
+                <td style="border-bottom: 1px solid var(--border); padding: 0.3rem 0.5rem; text-align:right;">7.62</td>
+                <td style="border-bottom: 1px solid var(--border); padding: 0.3rem 0.5rem; text-align:right;">1.54e6</td>
+              </tr>
+              <tr>
+                <td style="padding: 0.3rem 0.5rem;">California</td>
+                <td style="padding: 0.3rem 0.5rem; text-align:right;">13.09</td>
+                <td style="padding: 0.3rem 0.5rem; text-align:right;">1.47e7</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="missingness">
+          <h2>Assessment of Missingness</h2>
+          <p>
+            I focus on missing values in <code>CUSTOMERS.AFFECTED</code>, since this
+            is my main outcome variable. I create a boolean indicator
+            <code>CUSTOMERS.AFFECTED_missing</code> and study how it relates to other
+            columns using permutation tests on a chi-square statistic from
+            contingency tables.
+          </p>
+          <p>
+            Two comparisons are of particular interest:
+          </p>
+          <ul>
+            <li><strong>Missingness vs. <code>U.S._STATE</code></strong> –
+                The observed chi-square statistic is about <strong>242.5</strong>
+                with an empirical <strong>p-value ≈ 0.000</strong>, suggesting that
+                missingness in <code>CUSTOMERS.AFFECTED</code> <em>depends</em> on the
+                state. Some states are much more likely to be missing values than others.</li>
+            <li><strong>Missingness vs. <code>CLIMATE.CATEGORY</code></strong> –
+                Here the chi-square statistic is about <strong>2.57</strong> with
+                <strong>p ≈ 0.286</strong>, so I do not find evidence that missingness
+                depends on this higher-level climate category.</li>
+          </ul>
+          <p>
+            Substantively, this suggests that missing customer counts may be
+            <strong>MAR (Missing At Random)</strong> with respect to state-level
+            properties like reporting practices or utility infrastructure, but not
+            strongly tied to the broad climate category.
+          </p>
+
+          <iframe
+            src="../assets/step3_missingness.html"
+            class="plot-frame"
+            title="Distribution of climate region by whether customers affected is missing">
+          </iframe>
+        </section>
+
+        <section id="hypothesis">
+          <h2>Hypothesis Testing</h2>
+          <p>
+            To formally answer the main research question, I perform a permutation
+            test comparing the mean number of customers affected in the
+            <code>South</code> and <code>West North Central</code> climate regions.
+          </p>
+          <ul>
+            <li><strong>Null hypothesis</strong>:
+                The mean <code>CUSTOMERS.AFFECTED</code> is the same in the South and
+                West North Central.</li>
+            <li><strong>Alternative hypothesis</strong>:
+                The mean <code>CUSTOMERS.AFFECTED</code> is higher in the South.</li>
+            <li><strong>Test statistic</strong>:
+                Difference in sample means, South minus West North Central.</li>
+          </ul>
+          <p>
+            In the observed data, the South has about
+            <strong>136,185 more customers affected on average</strong> than West
+            North Central. Using 5,000 label permutations, the empirical
+            <strong>one-sided p-value is ≈ 0.040</strong>, which is below a 5% significance
+            threshold.
+          </p>
+          <p>
+            <strong>Conclusion:</strong> I reject the null hypothesis at the 0.05 level.
+            The analysis provides evidence that major outages in the South affect
+            more customers on average than those in West North Central, although
+            this conclusion is still subject to the limitations of observational
+            data and the modeling choices made here.
+          </p>
+        </section>
+
+        <section id="prediction">
+          <h2>Framing a Prediction Problem</h2>
+          <p>
+            Beyond hypothesis testing, I frame a <strong>regression problem</strong>:
+            predict <code>CUSTOMERS.AFFECTED</code> for a large outage using only
+            information that would be available at the time of prediction.
+          </p>
+          <p>
+            The response variable is <code>CUSTOMERS.AFFECTED</code>. I evaluate
+            models using <strong>Root Mean Squared Error (RMSE)</strong>, which keeps
+            the metric in the same units as the outcome and penalizes large errors.
+          </p>
+          <p>
+            Features are restricted to attributes known before or at the very start
+            of the event, such as:
+          </p>
+          <ul>
+            <li><code>YEAR</code> and <code>MONTH</code> of the outage.</li>
+            <li><code>CLIMATE.REGION</code>, <code>U.S._STATE</code>, and
+                <code>NERC.REGION</code>.</li>
+            <li>When appropriate, early estimates like <code>OUTAGE.DURATION</code>
+                if they are available at prediction time.</li>
+          </ul>
+          <p>
+            The data is split into train and test sets using a 75/25 split with a
+            fixed random seed. All subsequent models use the same split so their
+            performance is directly comparable.
+          </p>
+        </section>
+
+        <section id="baseline">
+          <h2>Baseline Model</h2>
+          <p>
+            As a baseline, I fit a <strong>linear regression model</strong> using two
+            features:
+          </p>
+          <ul>
+            <li><code>YEAR</code> (quantitative, passed through unchanged).</li>
+            <li><code>CLIMATE.REGION</code> (categorical, one-hot encoded).</li>
+          </ul>
+          <p>
+            These features are combined in a scikit-learn
+            <code>Pipeline</code> with a <code>ColumnTransformer</code> that
+            one-hot encodes the climate region, followed by <code>LinearRegression</code>.
+          </p>
+          <div class="metric-grid">
+            <div class="metric">
+              <div class="metric-label">Baseline RMSE (Train)</div>
+              <div class="metric-value">≈ 254,180 customers</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Baseline RMSE (Test)</div>
+              <div class="metric-value">≈ 343,652 customers</div>
+            </div>
+          </div>
+          <p>
+            Residual plots for the baseline model show wide dispersion and
+            substantial under-prediction on the largest events, which is not
+            surprising given the limited feature set and the heavy-tailed nature
+            of the outcome variable.
+          </p>
+
+          <iframe
+            src="../assets/step6_baseline_scatter.html"
+            class="plot-frame"
+            title="Baseline model: actual vs. predicted customers affected (test set)">
+          </iframe>
+
+          <iframe
+            src="../assets/step6_baseline_resid.html"
+            class="plot-frame"
+            title="Baseline model residuals (test set)">
+          </iframe>
+        </section>
+
+        <section id="final-model">
+          <h2>Final Model</h2>
+          <p>
+            To improve performance, the final model adds more information and
+            performs explicit hyperparameter tuning. I:
+          </p>
+          <ul>
+            <li>Add two new quantitative features:
+                <code>MONTH</code> and <code>OUTAGE.DURATION</code>.</li>
+            <li>Standardize numeric features and one-hot encode
+                <code>CLIMATE.REGION</code> inside a single
+                <code>Pipeline</code>.</li>
+            <li>Use <code>Ridge</code> regression and select the regularization
+                strength <code>alpha</code> via <code>GridSearchCV</code> over
+                {0.01, 0.1, 1.0, 10.0}.</li>
+          </ul>
+          <div class="metric-grid">
+            <div class="metric">
+              <div class="metric-label">Best α</div>
+              <div class="metric-value">10.0</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Final RMSE (Train)</div>
+              <div class="metric-value">≈ 251,106 customers</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Final RMSE (Test)</div>
+              <div class="metric-value">≈ 329,891 customers</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">Test Improvement</div>
+              <div class="metric-value">≈ 13,761 fewer customers vs. baseline</div>
+            </div>
+          </div>
+          <p>
+            While the improvement over the baseline is modest, it is consistent:
+            both train and test RMSE decrease, and residual plots show slightly
+            tighter dispersion around the diagonal. The model still struggles with
+            the largest outages, suggesting that additional features (such as
+            utility-level characteristics or weather severity) might be needed to
+            capture these extreme events.
+          </p>
+
+          <iframe
+            src="../assets/step7_final_scatter.html"
+            class="plot-frame"
+            title="Final model: actual vs. predicted customers affected (test set)">
+          </iframe>
+
+          <iframe
+            src="../assets/step7_final_resid.html"
+            class="plot-frame"
+            title="Final model residuals (test set)">
+          </iframe>
+
+          <p>
+            To interpret the model, I also examine the magnitude of each Ridge
+            coefficient after preprocessing. The plot below shows the features with
+            the largest absolute coefficients; features at the top contribute most
+            strongly (in either direction) to the predicted number of customers affected.
+          </p>
+
+          <iframe
+            src="../assets/step7_importance.html"
+            class="plot-frame"
+            title="Final model feature importance (|Ridge coefficients|)">
+          </iframe>
+        </section>
+
+        <section id="fairness">
+          <h2>Fairness Analysis</h2>
+          <p>
+            Finally, I assess whether the final model performs equally well for
+            different climate regions. I focus again on the <code>South</code> and
+            <code>West North Central</code> groups and compute the RMSE of the
+            final model on the test set within each group.
+          </p>
+          <div class="metric-grid">
+            <div class="metric">
+              <div class="metric-label">RMSE · South</div>
+              <div class="metric-value">≈ 597,312 customers</div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">RMSE · West North Central</div>
+              <div class="metric-value">≈ 21,874 customers</div>
+            </div>
+          </div>
+          <p>
+            The model clearly performs much worse for the South: its typical error
+            there is more than half a million customers, compared to only tens of
+            thousands in West North Central. To quantify whether this difference
+            could be due to chance, I run a permutation test that shuffles climate
+            region labels across the test set and recomputes
+            <code>|RMSE_South − RMSE_WNC|</code>.
+          </p>
+          <p>
+            The observed difference is about <strong>575,439 customers</strong>, and
+            the permutation distribution yields an empirical
+            <strong>p-value ≈ 0.051</strong>. This is borderline with respect to a
+            5% significance level: the evidence points toward the model being
+            <em>unfair</em> to the South, but just misses the conventional cutoff.
+          </p>
+          <p>
+            Substantively, the huge gap in RMSE matters more than the exact
+            p-value. The model systematically makes larger errors in the South, the
+            very region where outages already appear more severe. Improving the
+            model for this group, perhaps by incorporating more detailed weather or
+            infrastructure features, would be an important direction for future work.
+          </p>
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      <span>Last updated 2026.</span>
+    </footer>
+  </div>
+</body>
+</html>
+
