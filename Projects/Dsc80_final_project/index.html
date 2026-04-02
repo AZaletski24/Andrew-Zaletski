@@ -33,24 +33,19 @@
       </div>
     </nav>
 
-    <hr>
-
-    <div class="toc-fixed-spacer" aria-hidden="true"></div>
-    <div class="toc-fixed-bar">
-      <aside class="toc-panel" aria-label="Section navigation">
-        <div class="toc-title">Sections</div>
-        <ul>
-          <li><a href="#introduction">Introduction</a></li>
-          <li><a href="#eda">Data Cleaning and Exploratory Data Analysis</a></li>
-          <li><a href="#missingness">Assessment of Missingness</a></li>
-          <li><a href="#hypothesis">Hypothesis Testing</a></li>
-          <li><a href="#prediction">Framing a Prediction Problem</a></li>
-          <li><a href="#baseline">Baseline Model</a></li>
-          <li><a href="#final-model">Final Model</a></li>
-          <li><a href="#fairness">Fairness Analysis</a></li>
-        </ul>
-      </aside>
-    </div>
+    <aside class="toc-panel" aria-label="Section navigation">
+      <div class="toc-title">Sections</div>
+      <ul>
+        <li><a href="#introduction">Introduction</a></li>
+        <li><a href="#eda">Data Cleaning and Exploratory Data Analysis</a></li>
+        <li><a href="#missingness">Assessment of Missingness</a></li>
+        <li><a href="#hypothesis">Hypothesis Testing</a></li>
+        <li><a href="#prediction">Framing a Prediction Problem</a></li>
+        <li><a href="#baseline">Baseline Model</a></li>
+        <li><a href="#final-model">Final Model</a></li>
+        <li><a href="#fairness">Fairness Analysis</a></li>
+      </ul>
+    </aside>
 
     <main>
       <div class="report-prose">
@@ -420,11 +415,6 @@
 
   <script>
     (function () {
-      var bar = document.querySelector(".toc-fixed-bar .toc-panel");
-      var sp = document.querySelector(".toc-fixed-spacer");
-      function syncTocSpacer() {
-        if (bar && sp) sp.style.height = bar.offsetHeight + "px";
-      }
       function resizePlots() {
         if (!window.Plotly) return;
         document.querySelectorAll(".plot-embed-wrap .plotly-graph-div").forEach(function (el) {
@@ -432,15 +422,8 @@
           if (el._fullLayout) Plotly.Plots.resize(el);
         });
       }
-      syncTocSpacer();
-      window.addEventListener("resize", function () {
-        syncTocSpacer();
-        resizePlots();
-      });
-      window.addEventListener("load", function () {
-        syncTocSpacer();
-        resizePlots();
-      });
+      window.addEventListener("resize", resizePlots);
+      window.addEventListener("load", resizePlots);
     })();
   </script>
 

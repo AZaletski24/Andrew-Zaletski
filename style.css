@@ -239,37 +239,12 @@ nav.subpage-nav .crumbs a:hover {
   margin-right: 0.4rem;
 }
 
-.toc-fixed-spacer {
-  width: 100%;
-}
-
-.toc-fixed-bar {
-  position: fixed;
-  top: 3.5rem;
-  left: 0;
-  right: 0;
-  z-index: 8;
-  display: flex;
-  justify-content: center;
-  padding: 0 1.5rem;
-  box-sizing: border-box;
-  pointer-events: none;
-}
-
-.toc-fixed-bar .toc-panel {
-  pointer-events: auto;
-  position: relative;
-  top: auto;
-  width: 100%;
-  max-width: 720px;
-  margin-bottom: 0;
-}
-
 .toc-panel {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 1rem 1.1rem;
+  margin-bottom: 1.5rem;
 }
 
 .toc-title {
