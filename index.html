@@ -6,140 +6,13 @@
   <title>Andrew Zaletski</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0d0f12;
-      --surface: #161a20;
-      --text: #e6e9ef;
-      --text-muted: #8b919e;
-      --accent: #7dd3b0;
-      --accent-dim: #5ab896;
-      --border: #2a2f38;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'DM Sans', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem;
-    }
-
-    header {
-      margin-bottom: 4rem;
-    }
-
-    h1 {
-      font-size: clamp(1.75rem, 4vw, 2.25rem);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.5rem;
-    }
-
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 1rem;
-      font-weight: 400;
-    }
-
-    hr {
-      border: none;
-      height: 1px;
-      background: var(--border);
-      margin: 2.5rem 0;
-    }
-
-    h2 {
-      font-size: 1rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 1.25rem;
-    }
-
-    .project {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1.25rem 1.5rem;
-      margin-bottom: 1rem;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .project:hover {
-      border-color: var(--accent-dim);
-      box-shadow: 0 0 0 1px var(--accent-dim);
-    }
-
-    .project-title {
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin-bottom: 0.35rem;
-    }
-
-    .project-meta {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
-    }
-
-    .project-desc {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-    }
-
-    .project-link {
-      display: inline-block;
-      margin-top: 0.75rem;
-      font-size: 0.9rem;
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .project-link:hover {
-      color: var(--accent-dim);
-      text-decoration: underline;
-    }
-
-    .resume-preview {
-      width: 100%;
-      height: 270px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      margin-top: 0.9rem;
-      background: #0b0d11;
-    }
-
-    footer {
-      margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.85rem;
-      color: var(--text-muted);
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <header>
       <h1>Andrew Zaletski</h1>
-      <!-- <img src="headshot.jpeg" alt="Andrew Zaletski" style="width: 100px; height: 120px"> Headshot here, find better picture-->
+      <img src="images/headshot.jpeg" alt="Andrew Zaletski", style="width: 150px; height: 200px", alt="'My headshot!">
       <p class="subtitle">Data Scientist</p>
       <a href="https://www.linkedin.com/in/andrew-zaletski" target="_blank" rel="noopener noreferrer" style="color: var(--accent);">LinkedIn</a>
       <a href="https://www.github.com/AZaletski24" target="_blank" rel="noopener noreferrer" style="color: var(--accent);">GitHub</a>
@@ -175,7 +48,7 @@
           Analysis of major U.S. power outages: location-based hypothesis testing,
           regression to predict customers affected, and fairness analysis.
         </p>
-        <a href="Projects/Dsc80_final_project/power-outages-report.html" class="project-link">View full report →</a>
+        <a href="Projects/Dsc80_final_project/index.html" class="project-link">View full report →</a>
       </article>
 
       <article class="project">
@@ -188,6 +61,12 @@
         </p>
         <a href="Projects/2025_smt_data_challenge/SMT_Data_Challenge_2025_Paper.pdf" class="project-link" download>View Full Report →</a>
       </article>
+    </section>
+
+    <hr>
+
+    <section>
+      <h2><a href="Contact/index.html">Contact</a></h2>
     </section>
 
     <footer>

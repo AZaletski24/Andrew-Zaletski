@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact · Andrew Zaletski</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Contact</h1>
+      <p class="subtitle">Send a message</p>
+    </header>
+
+    <nav class="subpage-nav">
+      <div class="crumbs">
+        <a href="../index.html">← Back to home</a>
+      </div>
+    </nav>
+
+
+    <section>
+      <article class="project">
+        <form
+          class="contact-form"
+          action="mailto:azaletski@ucsd.edu"
+          method="POST"
+          enctype="text/plain"
+        >
+          <p>
+            <label>email<br>
+              <input name="email" type="email">
+            </label>
+          </p>
+          <p>
+            <label>subject<br>
+              <input name="subject">
+            </label>
+          </p>
+          <p>
+            <label>body<br>
+              <textarea name="body" rows="8" cols="40"></textarea>
+            </label>
+          </p>
+          <p>
+            <button>Submit</button>
+          </p>
+        </form>
+      </article>
+    </section>
+  </div>
+</body>
+</html>
