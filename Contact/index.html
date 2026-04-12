@@ -10,17 +10,11 @@
 </head>
 <body>
   <div class="container">
-    <header>
-      <h1>Contact</h1>
-      <p class="subtitle">Send a message</p>
-    </header>
-
     <nav class="subpage-nav">
       <div class="crumbs">
         <a href="../index.html">← Back to home</a>
       </div>
     </nav>
-
 
     <section>
       <article class="project">
@@ -30,24 +24,19 @@
           method="POST"
           enctype="text/plain"
         >
-          <p>
-            <label>email<br>
-              <input name="email" type="email">
-            </label>
-          </p>
-          <p>
-            <label>subject<br>
-              <input name="subject">
-            </label>
-          </p>
-          <p>
-            <label>body<br>
-              <textarea name="body" rows="8" cols="40"></textarea>
-            </label>
-          </p>
-          <p>
-            <button>Submit</button>
-          </p>
+          <label>
+            <span>email</span>
+            <input name="email" type="email">
+          </label>
+          <label>
+            <span>subject</span>
+            <input name="subject">
+          </label>
+          <label>
+            <span>body</span>
+            <textarea name="body" rows="8" cols="40"></textarea>
+          </label>
+          <button type="submit">Submit</button>
         </form>
       </article>
     </section>
