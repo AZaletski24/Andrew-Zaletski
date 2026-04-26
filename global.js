@@ -117,3 +117,52 @@ contactForm?.addEventListener("submit", (event) => {
   const url = `${action}?${parts.join("&")}`;
   location.href = url;
 });
+
+export async function fetchJSON(url) {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch JSON: ${response.statusText}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching or parsing JSON data:', error);
+  }
+}
+
+export function renderProjects(projects, containerElement, headingLevel = 'h2') {
+  if (!containerElement) return;
+  containerElement.innerHTML = '';
+  projects.forEach(project => {
+    const article = document.createElement('article');
+    
+    const title = project.title || 'Untitled';
+    const image = project.image || 'https://vis-society.github.io/labs/2/images/empty.svg';
+    const desc = project.description || '';
+    const year = project.year || '';
+    
+    // Resolve relative URL dynamically if not starting with http
+    let url = project.url || '';
+    if (url && !url.startsWith('http')) {
+       // Since renderProjects might be called from indices at different folder depths, 
+       // it's safest to use the BASE_PATH assuming urls are relative to root, or use a data-based approach.
+       // The projects are stored with their relative paths from root, so we ensure absolute.
+       url = resolveUrl(url); 
+    }
+
+    let linkStr = url ? ` <a href="${url}" class="project-link">View project \u2192</a>` : '';
+    let yearStr = year ? ` <span style="font-family: var(--heading-font); color: var(--color-subtle); float: right;">${year}</span>` : '';
+
+    article.innerHTML = `
+      <${headingLevel}>${title}${yearStr}</${headingLevel}>
+      <img src="${image}" alt="${title}">
+      <p>${desc}${linkStr}</p>
+    `;
+    containerElement.appendChild(article);
+  });
+}
+
+export async function fetchGitHubData(username) {
+  return fetchJSON(`https://api.github.com/users/${username}`);
+}

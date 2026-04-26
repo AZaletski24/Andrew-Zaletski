@@ -1,0 +1,77 @@
+[
+  {
+    "title": "Ultra-Processed Foods Are Not Always the Cheapest Calories",
+    "year": 2026,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "An exploration into the relationship between food processing and affordability across major grocery retailers. Comparing distributions to see if less processed food can remain competitive in cost.",
+    "url": "Projects/DSC106/Project_1/index.html"
+  },
+  {
+    "title": "Power Outage Severity by Location",
+    "year": 2026,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Analysis of major U.S. power outages: location-based hypothesis testing, regression to predict customers affected, and fairness analysis.",
+    "url": "Projects/DSC80_final_project/index.html"
+  },
+  {
+    "title": "The Man in the Middle",
+    "year": 2025,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "In-depth analysis of cutoff decision making at the minor league level using random forest classification on a dataset of anonymized minor league player and ball tracking data.",
+    "url": "Projects/2025_smt_data_challenge/SMT_Data_Challenge_2025_Paper.pdf"
+  },
+  {
+    "title": "Placeholder Project 4",
+    "year": 2024,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium."
+  },
+  {
+    "title": "Placeholder Project 5",
+    "year": 2024,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium."
+  },
+  {
+    "title": "Placeholder Project 6",
+    "year": 2023,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium."
+  },
+  {
+    "title": "Placeholder Project 7",
+    "year": 2023,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium."
+  },
+  {
+    "title": "Placeholder Project 8",
+    "year": 2022,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium."
+  },
+  {
+    "title": "Placeholder Project 9",
+    "year": 2022,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium."
+  },
+  {
+    "title": "Placeholder Project 10",
+    "year": 2021,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium."
+  },
+  {
+    "title": "Placeholder Project 11",
+    "year": 2021,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium."
+  },
+  {
+    "title": "Placeholder Project 12",
+    "year": 2020,
+    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos, quod assumenda explicabo odio, nobis ipsa laudantium."
+  }
+]

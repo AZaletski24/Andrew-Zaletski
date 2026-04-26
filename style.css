@@ -578,3 +578,39 @@ nav.subpage-nav .crumbs a:hover {
 .report-table tbody tr:last-child td {
   border-bottom: none;
 }
+
+/* GitHub Profile Stats Grid */
+#profile-stats {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+#profile-stats dl {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  padding: 15px 10px;
+  border-radius: 10px;
+  text-align: center;
+  align-items: center;
+}
+
+#profile-stats dt {
+  grid-row: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-size: 0.8em;
+  margin: 0;
+}
+
+#profile-stats dd {
+  grid-row: 2;
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+  color: var(--accent);
+}
