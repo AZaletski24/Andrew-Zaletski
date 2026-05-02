@@ -136,28 +136,26 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
   containerElement.innerHTML = '';
   projects.forEach(project => {
     const article = document.createElement('article');
-    
+
     const title = project.title || 'Untitled';
     const image = project.image || 'https://vis-society.github.io/labs/2/images/empty.svg';
     const desc = project.description || '';
     const year = project.year || '';
-    
-    // Resolve relative URL dynamically if not starting with http
+
     let url = project.url || '';
     if (url && !url.startsWith('http')) {
-       // Since renderProjects might be called from indices at different folder depths, 
-       // it's safest to use the BASE_PATH assuming urls are relative to root, or use a data-based approach.
-       // The projects are stored with their relative paths from root, so we ensure absolute.
-       url = resolveUrl(url); 
+       url = resolveUrl(url);
     }
 
     let linkStr = url ? ` <a href="${url}" class="project-link">View project \u2192</a>` : '';
-    let yearStr = year ? ` <span style="font-family: var(--heading-font); color: var(--color-subtle); float: right;">${year}</span>` : '';
 
     article.innerHTML = `
-      <${headingLevel}>${title}${yearStr}</${headingLevel}>
+      <${headingLevel}>${title}</${headingLevel}>
       <img src="${image}" alt="${title}">
-      <p>${desc}${linkStr}</p>
+      <div class="project-body">
+        <p>${desc}${linkStr}</p>
+        ${year ? `<p class="project-year">${year}</p>` : ''}
+      </div>
     `;
     containerElement.appendChild(article);
   });

@@ -579,6 +579,94 @@ nav.subpage-nav .crumbs a:hover {
   border-bottom: none;
 }
 
+/* Project year shown below description */
+.project-year {
+  font-family: Baskerville, 'Baskerville Old Face', 'Goudy Old Style', serif;
+  font-variant-numeric: oldstyle-nums;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 0.35rem;
+}
+
+/* Pie chart */
+#projects-pie-plot {
+  max-width: 20em;
+  margin-block: 2em;
+  overflow: visible;
+  flex-shrink: 0;
+
+  path {
+    cursor: pointer;
+    transition: 300ms;
+  }
+
+  &:has(path:hover) {
+    path:not(:hover) {
+      opacity: 0.5;
+    }
+  }
+}
+
+/* Selected wedge / legend item */
+.selected {
+  --color: oklch(60% 45% 0) !important;
+
+  &:is(path) {
+    fill: var(--color);
+  }
+}
+
+/* Pie chart + legend side-by-side */
+.pie-legend-wrap {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  margin-bottom: 1.5em;
+}
+
+/* Legend */
+.legend {
+  list-style: none;
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
+  gap: 0.75em;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1em;
+  margin-block: 2em;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.legend-item .swatch {
+  width: 1em;
+  aspect-ratio: 1 / 1;
+  background: var(--color);
+  border-radius: 3px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Search bar */
+.searchBar {
+  display: block;
+  width: 100%;
+  font: inherit;
+  padding: 0.6rem 0.75rem;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 1.5em;
+}
+
 /* GitHub Profile Stats Grid */
 #profile-stats {
   margin-top: 1.5rem;
